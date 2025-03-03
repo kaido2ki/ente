@@ -1,0 +1,32 @@
+name: web docker
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "0 0 * * *"
+
+permissions:
+  contents: read
+  packages: write
+  security-events: write
+  id-token: write
+
+jobs:
+  build-server:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Prepare image repository
+        id: image-repo
+        run: |
+          echo "today=$(date +%Y%m%d)" >> $GITHUB_OUTPUT
+      - name: Build docker
+        uses: meysam81/build-docker@main
+        with:
+          context: ./web
+          cosign: true
+          image-extra-tags: |
+            ghcr.io/${{ github.repository }}/ente-web:${{ steps.image-repo.outputs.today }}
+          image-name: ghcr.io/${{ github.repository }}/ente-web
