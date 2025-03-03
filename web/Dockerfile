@@ -9,8 +9,10 @@ COPY apps/ .
 RUN corepack enable
 
 # Endpoint for Ente Server
-ENV NEXT_PUBLIC_ENTE_ENDPOINT=https://your-ente-endpoint.com
-ENV NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT=https://your-albums-endpoint.com
+ARG NEXT_PUBLIC_ENTE_ENDPOINT
+ENV NEXT_PUBLIC_ENTE_ENDPOINT=${NEXT_PUBLIC_ENTE_ENDPOINT}
+ARG NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT
+ENV NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT=${NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT}
 RUN echo "Current directory: $(pwd)" && ls -la
 RUN yarn cache clean
 
@@ -25,9 +27,6 @@ COPY --from=builder /ente/apps/photos/out /app/photos
 COPY --from=builder /ente/apps/accounts/out /app/accounts
 COPY --from=builder /ente/apps/auth/out /app/auth
 COPY --from=builder /ente/apps/cast/out /app/cast
-
-ENV NEXT_PUBLIC_ENTE_ENDPOINT=https://ente-endpoint.com
-ENV NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT=https://albums-endpoint.com
 
 RUN npm install -g serve
 
