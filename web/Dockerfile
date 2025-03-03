@@ -1,6 +1,6 @@
-FROM node:20-bookworm-slim as builder
+FROM node:20-bookworm-slim AS builder
 
-WORKDIR ./ente
+WORKDIR /ente
 
 COPY . .
 COPY apps/ .
@@ -13,6 +13,7 @@ ENV NEXT_PUBLIC_ENTE_ENDPOINT=https://your-ente-endpoint.com
 ENV NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT=https://your-albums-endpoint.com
 RUN echo "Current directory: $(pwd)" && ls -la
 RUN yarn cache clean
+RUN yarn add photoswipe
 RUN yarn install --network-timeout 1000000000
 RUN yarn build:photos && yarn build:accounts && yarn build:auth && yarn build:cast
 
