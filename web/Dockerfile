@@ -1,4 +1,4 @@
-FROM node:22 AS builder
+FROM node:20-bookworm-slim as builder
 
 WORKDIR ./ente
 
@@ -16,7 +16,7 @@ RUN yarn cache clean
 RUN yarn install --network-timeout 1000000000
 RUN yarn build:photos && yarn build:accounts && yarn build:auth && yarn build:cast
 
-FROM node:22
+FROM node:20-bookworm-slim
 
 WORKDIR /app
 
