@@ -1,36 +1,48 @@
-FROM node:22-alpine AS builder
+FROM node:20-bookworm-slim as builder
 
-WORKDIR /app
+WORKDIR ./ente
+
 COPY . .
+COPY apps/ .
 
-ARG NEXT_PUBLIC_ENTE_ENDPOINT=https://ente.example.com
-ENV NEXT_PUBLIC_ENTE_ENDPOINT=${NEXT_PUBLIC_ENTE_ENDPOINT}
+# Will help default to yarn versoin 1.22.22
+RUN corepack enable
 
-ARG NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT=https://album.example.com
-ENV NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT=${NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT}
+# Endpoint for Ente Server
+ENV NEXT_PUBLIC_ENTE_ENDPOINT=https://your-ente-endpoint.com
+ENV NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT=https://your-albums-endpoint.com
 
-ARG NEXT_PUBLIC_ENTE_ACCOUNTS_URL=https://accounts.example.com
-ENV NEXT_PUBLIC_ENTE_ACCOUNTS_URL=${NEXT_PUBLIC_ENTE_ACCOUNTS_URL}
+RUN yarn cache clean
+RUN yarn install --network-timeout 1000000000
+RUN yarn build:photos && yarn build:accounts && yarn build:auth && yarn build:cast
 
-RUN npm install -g yarn
-RUN yarn install && yarn build:photos && yarn build:auth && yarn build:accounts
-
-FROM node:22-alpine
+FROM node:20-bookworm-slim
 
 WORKDIR /app
-COPY --from=builder /app/apps/photos/out /app/photos
-COPY --from=builder /app/apps/auth/out /app/auth
-COPY --from=builder /app/apps/accounts/out /app/accounts
+
+COPY --from=builder /ente/apps/photos/out /app/photos
+COPY --from=builder /ente/apps/accounts/out /app/accounts
+COPY --from=builder /ente/apps/auth/out /app/auth
+COPY --from=builder /ente/apps/cast/out /app/cast
 
 RUN npm install -g serve
 
-ENV WEBPORT=3000
-EXPOSE ${WEBPORT}
+ENV PHOTOS=3000
+EXPOSE ${PHOTOS}
 
 ENV ACCOUNTS=3001
 EXPOSE ${ACCOUNTS}
 
-ENV AUTHPORT=3005
-EXPOSE ${AUTHPORT}
+ENV AUTH=3002
+EXPOSE ${AUTH}
 
-CMD ["sh", "-c", "serve /app/photos -l tcp://0.0.0.0:${WEBPORT} & serve /app/auth -l tcp://0.0.0.0:${AUTHPORT} & serve /app/accounts -l tcp://0.0.0.0:${ACCOUNTS}"]
+ENV CAST=3003
+EXPOSE ${CAST}
+
+# The albums app does not have navigable pages on it, but the
+# port will be exposed in-order to self up the albums endpoint
+# `apps.public-albums` in museum.yaml configuration file.
+ENV ALBUMS=3004
+EXPOSE ${ALBUMS}
+
+CMD ["sh", "-c", "serve /app/photos -l tcp://0.0.0.0:${PHOTOS} & serve /app/accounts -l tcp://0.0.0.0:${ACCOUNTS} & serve /app/auth -l tcp://0.0.0.0:${AUTH} & serve /app/cast -l tcp://0.0.0.0:${CAST}"]
