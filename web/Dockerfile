@@ -1,6 +1,6 @@
 FROM node:22 AS builder
 
-WORKDIR /ente
+WORKDIR ./ente
 
 COPY . .
 COPY apps/ .
