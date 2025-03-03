@@ -1,6 +1,6 @@
 FROM node:20-bookworm-slim AS builder
 
-WORKDIR ./ente
+WORKDIR /ente
 
 COPY . .
 COPY apps/ .
