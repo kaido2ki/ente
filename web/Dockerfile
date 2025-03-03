@@ -26,6 +26,9 @@ COPY --from=builder /ente/apps/accounts/out /app/accounts
 COPY --from=builder /ente/apps/auth/out /app/auth
 COPY --from=builder /ente/apps/cast/out /app/cast
 
+ENV NEXT_PUBLIC_ENTE_ENDPOINT=https://ente-endpoint.com
+ENV NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT=https://albums-endpoint.com
+
 RUN npm install -g serve
 
 ENV PHOTOS=3000
