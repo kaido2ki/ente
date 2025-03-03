@@ -13,7 +13,7 @@ ENV NEXT_PUBLIC_ENTE_ENDPOINT=https://your-ente-endpoint.com
 ENV NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT=https://your-albums-endpoint.com
 RUN echo "Current directory: $(pwd)" && ls -la
 RUN yarn cache clean
-RUN yarn add photoswipe -W
+RUN git submodule update --init --recursive
 RUN yarn install --network-timeout 1000000000
 RUN yarn build:photos && yarn build:accounts && yarn build:auth && yarn build:cast
 
