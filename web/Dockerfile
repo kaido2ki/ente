@@ -12,6 +12,7 @@ ENV NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT=${NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT}
 ARG NEXT_PUBLIC_ENTE_ACCOUNTS_URL=https://accounts.example.com
 ENV NEXT_PUBLIC_ENTE_ACCOUNTS_URL=${NEXT_PUBLIC_ENTE_ACCOUNTS_URL}
 
+RUN npm install -g yarn
 RUN yarn install && yarn build:photos && yarn build:auth && yarn build:accounts
 
 FROM node:22-alpine
