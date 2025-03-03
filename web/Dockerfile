@@ -9,8 +9,10 @@ COPY apps/ .
 RUN corepack enable
 
 # Endpoint for Ente Server
-ENV NEXT_PUBLIC_ENTE_ENDPOINT=https://your-ente-endpoint.com
-ENV NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT=https://your-albums-endpoint.com
+ARG NEXT_PUBLIC_ENTE_ENDPOINT
+ENV NEXT_PUBLIC_ENTE_ENDPOINT=${NEXT_PUBLIC_ENTE_ENDPOINT}
+ARG NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT
+ENV NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT=${NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT}
 RUN echo "Current directory: $(pwd)" && ls -la
 RUN yarn cache clean
 
