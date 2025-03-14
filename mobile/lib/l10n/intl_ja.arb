@@ -525,7 +525,6 @@
   "viewLargeFiles": "大きなファイル",
   "viewLargeFilesDesc": "最も多くのストレージを消費しているファイルを表示します。",
   "noDuplicates": "✨ 重複なし",
-  "youveNoDuplicateFilesThatCanBeCleared": "削除できる重複ファイルはありません",
   "success": "成功",
   "rateUs": "評価して下さい",
   "remindToEmptyDeviceTrash": "また、空き領域を取得するには、「設定」→「ストレージ」から「最近削除した項目」を空にします",
@@ -1674,5 +1673,19 @@
   "failed": "失敗",
   "playStream": "再生",
   "playOriginal": "元動画を再生",
-  "joinAlbumConfirmationDialogBody": "アルバムに参加すると、参加者にメールアドレスが公開されます。"
+  "joinAlbumConfirmationDialogBody": "アルバムに参加すると、参加者にメールアドレスが公開されます。",
+  "editTime": "Edit time",
+  "selectTime": "Select time",
+  "selectDate": "Select date",
+  "previous": "Previous",
+  "selectOneDateAndTimeForAll": "Select one date and time for all",
+  "selectStartOfRange": "Select start of range",
+  "thisWillMakeTheDateAndTimeOfAllSelected": "This will make the date and time of all selected photos the same.",
+  "allWillShiftRangeBasedOnFirst": "This is the first in the group. Other selected photos will automatically shift based on this new date",
+  "newRange": "New range",
+  "selectOneDateAndTime": "Select one date and time",
+  "moveSelectedPhotosToOneDate": "Move selected photos to one date",
+  "shiftDatesAndTime": "Shift dates and time",
+  "photosKeepRelativeTimeDifference": "Photos keep relative time difference",
+  "photocountPhotos": "$photoCount photos"
 }

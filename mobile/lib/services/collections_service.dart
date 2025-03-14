@@ -38,8 +38,8 @@ import "package:photos/models/metadata/collection_magic.dart";
 import "package:photos/service_locator.dart";
 import 'package:photos/services/app_lifecycle_service.dart';
 import "package:photos/services/favorites_service.dart";
-import 'package:photos/services/local_sync_service.dart';
-import 'package:photos/services/remote_sync_service.dart';
+import 'package:photos/services/sync/local_sync_service.dart';
+import 'package:photos/services/sync/remote_sync_service.dart';
 import "package:photos/utils/dialog_util.dart";
 import "package:photos/utils/file_key.dart";
 import "package:photos/utils/local_settings.dart";
@@ -91,6 +91,7 @@ class CollectionsService {
     for (final collection in collections) {
       // using deprecated method because the path is stored in encrypted
       // format in the DB
+      // ignore: deprecated_member_use_from_same_package
       _cacheCollectionAttributes(collection);
     }
     Bus.instance.on<CollectionUpdatedEvent>().listen((event) {

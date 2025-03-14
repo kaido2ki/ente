@@ -525,7 +525,6 @@
   "viewLargeFiles": "Tệp lớn",
   "viewLargeFilesDesc": "Xem các tệp đang tiêu tốn nhiều dung lượng lưu trữ nhất.",
   "noDuplicates": "✨ Không có trùng lặp",
-  "youveNoDuplicateFilesThatCanBeCleared": "Bạn không có tệp trùng lặp nào có thể được xóa",
   "success": "Thành công",
   "rateUs": "Đánh giá chúng tôi",
   "remindToEmptyDeviceTrash": "Cũng hãy xóa \"Đã xóa gần đây\" từ \"Cài đặt\" -> \"Lưu trữ\" để chiếm không gian đã giải phóng",
@@ -1597,5 +1596,19 @@
   "joinAlbum": "Tham gia album",
   "joinAlbumSubtext": "để xem và thêm ảnh của bạn",
   "joinAlbumSubtextViewer": "thêm vào album được chia sẻ",
-  "join": "Tham gia"
+  "join": "Tham gia",
+  "editTime": "Edit time",
+  "selectTime": "Select time",
+  "selectDate": "Select date",
+  "previous": "Previous",
+  "selectOneDateAndTimeForAll": "Select one date and time for all",
+  "selectStartOfRange": "Select start of range",
+  "thisWillMakeTheDateAndTimeOfAllSelected": "This will make the date and time of all selected photos the same.",
+  "allWillShiftRangeBasedOnFirst": "This is the first in the group. Other selected photos will automatically shift based on this new date",
+  "newRange": "New range",
+  "selectOneDateAndTime": "Select one date and time",
+  "moveSelectedPhotosToOneDate": "Move selected photos to one date",
+  "shiftDatesAndTime": "Shift dates and time",
+  "photosKeepRelativeTimeDifference": "Photos keep relative time difference",
+  "photocountPhotos": "$photoCount photos"
 }
