@@ -11383,6 +11383,36 @@ class S {
       args: [count],
     );
   }
+
+  /// `App icon`
+  String get appIcon {
+    return Intl.message(
+      'App icon',
+      name: 'appIcon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not this person?`
+  String get notThisPerson {
+    return Intl.message(
+      'Not this person?',
+      name: 'notThisPerson',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Selected items will be removed from this person, but not deleted from your library.`
+  String get selectedItemsWillBeRemovedFromThisPerson {
+    return Intl.message(
+      'Selected items will be removed from this person, but not deleted from your library.',
+      name: 'selectedItemsWillBeRemovedFromThisPerson',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

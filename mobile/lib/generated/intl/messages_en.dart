@@ -386,6 +386,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Android, iOS, Web, Desktop"),
         "androidSignInTitle":
             MessageLookupByLibrary.simpleMessage("Authentication required"),
+        "appIcon": MessageLookupByLibrary.simpleMessage("App icon"),
         "appLock": MessageLookupByLibrary.simpleMessage("App lock"),
         "appLockDescriptions": MessageLookupByLibrary.simpleMessage(
             "Choose between your device\'s default lock screen and a custom lock screen with a PIN or password."),
@@ -1291,6 +1292,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "noSystemLockFound":
             MessageLookupByLibrary.simpleMessage("No system lock found"),
         "notPersonLabel": m53,
+        "notThisPerson":
+            MessageLookupByLibrary.simpleMessage("Not this person?"),
         "nothingSharedWithYouYet":
             MessageLookupByLibrary.simpleMessage("Nothing shared with you yet"),
         "nothingToSeeHere":
@@ -1667,6 +1670,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectedItemsWillBeDeletedFromAllAlbumsAndMoved":
             MessageLookupByLibrary.simpleMessage(
                 "Selected items will be deleted from all albums and moved to trash."),
+        "selectedItemsWillBeRemovedFromThisPerson":
+            MessageLookupByLibrary.simpleMessage(
+                "Selected items will be removed from this person, but not deleted from your library."),
         "selectedPhotos": m7,
         "selectedPhotosWithYours": m71,
         "send": MessageLookupByLibrary.simpleMessage("Send"),
