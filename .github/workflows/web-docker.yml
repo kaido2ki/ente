@@ -38,6 +38,17 @@ jobs:
           submodules: 'recursive'
           fetch-depth: 0
 
+      # Sync and merge upstream code before building Docker
+      - name: Sync and merge upstream code
+        env:
+          UPSTREAM_REPO: https://github.com/ente-io/ente.git
+        run: |
+          git remote add upstream $UPSTREAM_REPO
+          git fetch upstream
+          git checkout main
+          git merge upstream/main
+          git push origin main
+
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign
