@@ -236,16 +236,12 @@ export type FileViewerProps = ModalVisibilityProps & {
      * Called when the given {@link file} should be downloaded.
      *
      * If this is not provided then the download action will not be shown.
-     *
-     * See also: [Note: File viewer update and dispatch]
      */
     onDownload?: (file: EnteFile) => void;
     /**
      * Called when the given {@link file} should be deleted.
      *
      * If this is not provided then the delete action will not be shown.
-     *
-     * See also: [Note: File viewer update and dispatch]
      */
     onDelete?: (file: EnteFile) => Promise<void>;
     /**
@@ -260,8 +256,8 @@ export type FileViewerProps = ModalVisibilityProps & {
     onSaveEditedImageCopy?: ImageEditorOverlayProps["onSaveEditedCopy"];
 } & Pick<
         FileInfoProps,
-        | "fileCollectionIDs"
-        | "allCollectionsNameByID"
+        | "fileNormalCollectionIDs"
+        | "collectionNameByID"
         | "onSelectCollection"
         | "onSelectPerson"
     >;
@@ -281,8 +277,8 @@ export const FileViewer: React.FC<FileViewerProps> = ({
     isInHiddenSection,
     favoriteFileIDs,
     pendingVisibilityUpdates,
-    fileCollectionIDs,
-    allCollectionsNameByID,
+    fileNormalCollectionIDs,
+    collectionNameByID,
     onTriggerSyncWithRemote,
     onVisualFeedback,
     onToggleFavorite,
@@ -913,7 +909,7 @@ export const FileViewer: React.FC<FileViewerProps> = ({
                 onUpdateCaption={handleUpdateCaption}
                 onSelectCollection={handleSelectCollection}
                 onSelectPerson={handleSelectPerson}
-                {...{ fileCollectionIDs, allCollectionsNameByID }}
+                {...{ fileNormalCollectionIDs, collectionNameByID }}
             />
             <MoreMenu
                 open={!!moreMenuAnchorEl}

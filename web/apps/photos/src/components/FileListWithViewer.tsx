@@ -79,8 +79,8 @@ export type FileListWithViewerProps = {
         | "user"
         | "isInIncomingSharedCollection"
         | "isInHiddenSection"
-        | "fileCollectionIDs"
-        | "allCollectionsNameByID"
+        | "fileNormalCollectionIDs"
+        | "collectionNameByID"
         | "pendingVisibilityUpdates"
         | "onVisualFeedback"
         | "onFileVisibilityUpdate"
@@ -108,8 +108,8 @@ export const FileListWithViewer: React.FC<FileListWithViewerProps> = ({
     favoriteFileIDs,
     isInIncomingSharedCollection,
     isInHiddenSection,
-    fileCollectionIDs,
-    allCollectionsNameByID,
+    fileNormalCollectionIDs,
+    collectionNameByID,
     pendingVisibilityUpdates,
     setFilesDownloadProgressAttributesCreator,
     onFileVisibilityUpdate,
@@ -174,11 +174,8 @@ export const FileListWithViewer: React.FC<FileListWithViewerProps> = ({
 
     const handleDelete = useMemo(() => {
         return onMarkTempDeleted
-            ? async (file: EnteFile) => {
-                  await moveToTrash([file]);
-                  // See: [Note: File viewer update and dispatch]
-                  onMarkTempDeleted?.([file]);
-              }
+            ? (file: EnteFile) =>
+                  moveToTrash([file]).then(() => onMarkTempDeleted?.([file]))
             : undefined;
     }, [onMarkTempDeleted]);
 
@@ -224,8 +221,8 @@ export const FileListWithViewer: React.FC<FileListWithViewerProps> = ({
                     isInHiddenSection,
                     isInIncomingSharedCollection,
                     favoriteFileIDs,
-                    fileCollectionIDs,
-                    allCollectionsNameByID,
+                    fileNormalCollectionIDs,
+                    collectionNameByID,
                     pendingVisibilityUpdates,
                     onVisualFeedback,
                     onFileVisibilityUpdate,
