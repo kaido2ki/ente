@@ -18,18 +18,14 @@ services:
       - source: credentials_yaml
         target: /credentials.yaml
     volumes:
-      - custom-logs:/var/logs
       - ./museum.yaml:/museum.yaml:ro
       - ./data:/data:ro
-    networks:
-      - internal
 
   # Resolve "localhost:3200" in the museum container to the minio container.
   socat:
     image: alpine/socat
     network_mode: service:museum
-    depends_on:
-      - museum
+    depends_on: [museum]
     command: "TCP-LISTEN:3200,fork,reuseaddr TCP:minio:3200"
 
   postgres:
@@ -40,22 +36,11 @@ services:
       POSTGRES_DB: ente_db
     # Wait for postgres to accept connections before starting museum.
     healthcheck:
-      test:
-        [
-          "CMD",
-          "pg_isready",
-          "-q",
-          "-d",
-          "ente_db",
-          "-U",
-          "pguser"
-        ]
+      test: pg_isready -q -d ente_db -U pguser
       start_period: 40s
       start_interval: 1s
     volumes:
       - postgres-data:/var/lib/postgresql/data
-    networks:
-      - internal
 
   minio:
     image: minio/minio
@@ -68,8 +53,6 @@ services:
     command: server /data --address ":3200" --console-address ":3201"
     volumes:
       - minio-data:/data
-    networks:
-      - internal
     post_start:
       - command: |
           sh -c '
@@ -90,6 +73,8 @@ services:
 
 configs:
   credentials_yaml:
+    # You'll need to recreate the containers (docker compose down && docker
+    # compose up) when changing this inline config for the changes to apply.
     content: |
       db:
           host: postgres
@@ -121,9 +106,5 @@ configs:
               bucket: scw-eu-fr-v3
 
 volumes:
-  custom-logs:
   postgres-data:
   minio-data:
-
-networks:
-  internal:

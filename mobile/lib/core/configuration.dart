@@ -80,10 +80,6 @@ class Configuration {
   late FlutterSecureStorage _secureStorage;
   late String _tempDocumentsDirPath;
   late String _thumbnailCacheDirectory;
-  // 6th July 22: Remove this after 3 months. Hopefully, active users
-  // will migrate to newer version of the app, where shared media is stored
-  // on appSupport directory which OS won't clean up automatically
-  late String _sharedTempMediaDirectory;
 
   late String _sharedDocumentsMediaDirectory;
   String? _volatilePassword;
@@ -104,8 +100,6 @@ class Configuration {
       final tempDirectoryPath = (await getTemporaryDirectory()).path;
       _thumbnailCacheDirectory = tempDirectoryPath + "/thumbnail-cache";
       Directory(_thumbnailCacheDirectory).createSync(recursive: true);
-      _sharedTempMediaDirectory = tempDirectoryPath + "/ente-shared-media";
-      Directory(_sharedTempMediaDirectory).createSync(recursive: true);
       _sharedDocumentsMediaDirectory =
           _documentsDirectory + "/ente-shared-media";
       Directory(_sharedDocumentsMediaDirectory).createSync(recursive: true);
@@ -209,6 +203,7 @@ class Configuration {
     await UploadLocksDB.instance.clearTable();
     await IgnoredFilesService.instance.reset();
     await TrashDB.instance.clearTable();
+    unawaited(HomeWidgetService.instance.clearWidget(autoLogout));
     if (!autoLogout) {
       // Following services won't be initialized if it's the case of autoLogout
       FileUploader.instance.clearCachedUploadURLs();
@@ -216,7 +211,6 @@ class Configuration {
       FavoritesService.instance.clearCache();
       SearchService.instance.clearCache();
       PersonService.instance.clearCache();
-      unawaited(HomeWidgetService.instance.clearHomeWidget());
       Bus.instance.fire(UserLoggedOutEvent());
     } else {
       await _preferences.setBool("auto_logout", true);
@@ -557,10 +551,6 @@ class Configuration {
 
   String getThumbnailCacheDirectory() {
     return _thumbnailCacheDirectory;
-  }
-
-  String getOldSharedMediaCacheDirectory() {
-    return _sharedTempMediaDirectory;
   }
 
   String getSharedMediaDirectory() {

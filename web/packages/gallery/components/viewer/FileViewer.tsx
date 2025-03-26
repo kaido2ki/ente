@@ -8,7 +8,6 @@ import { LoadingButton } from "@/base/components/mui/LoadingButton";
 import { useIsSmallWidth } from "@/base/components/utils/hooks";
 import { type ModalVisibilityProps } from "@/base/components/utils/modal";
 import { useBaseContext } from "@/base/context";
-import { isDevBuild } from "@/base/env";
 import { lowercaseExtension } from "@/base/file-name";
 import { formattedListJoin, ut } from "@/base/i18n";
 import type { LocalUser } from "@/base/local-user";
@@ -54,7 +53,6 @@ import React, {
     useRef,
     useState,
 } from "react";
-import { hlsPlaylistForFile } from "../../services/video";
 import {
     fileInfoExifForFile,
     updateItemDataAlt,
@@ -520,15 +518,6 @@ export const FileViewer: React.FC<FileViewerProps> = ({
                 }
             })();
 
-            if (
-                isDevBuild &&
-                process.env.NEXT_PUBLIC_ENTE_WIP_VIDEO_STREAMING
-            ) {
-                if (file.metadata.fileType == FileType.video) {
-                    void hlsPlaylistForFile(file);
-                }
-            }
-
             const annotation: FileViewerFileAnnotation = {
                 fileID,
                 isOwnFile,
@@ -827,8 +816,10 @@ export const FileViewer: React.FC<FileViewerProps> = ({
     }, [handleClose, files]);
 
     useEffect(() => {
-        psRef.current?.refreshCurrentSlideFavoriteButtonIfNeeded();
-    }, [favoriteFileIDs, pendingFavoriteUpdates]);
+        if (open) {
+            psRef.current?.refreshCurrentSlideFavoriteButtonIfNeeded();
+        }
+    }, [favoriteFileIDs, pendingFavoriteUpdates, open]);
 
     useEffect(() => {
         if (open) {
@@ -840,7 +831,9 @@ export const FileViewer: React.FC<FileViewerProps> = ({
                 disableDownload,
                 haveUser,
                 delegate: delegateRef.current!,
-                onClose: handleClose,
+                onClose: () => {
+                    if (psRef.current) handleClose();
+                },
                 onAnnotate: handleAnnotate,
                 onViewInfo: handleViewInfo,
                 onDownload: handleDownloadBarAction,
