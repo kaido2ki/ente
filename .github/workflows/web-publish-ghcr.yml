@@ -21,6 +21,9 @@ jobs:
                   directory: web
                   # Resultant package name will be ghcr.io/ente-io/web
                   image: web
+                  build-args: |
+                    ENTE_API_ORIGIN=${{ secrets.NEXT_PUBLIC_ENTE_ENDPOINT }}
+                    ENTE_ALBUMS_ORIGIN=${{ secrets.NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT }}
                   registry: ghcr.io
                   enableBuildKit: true
                   multiPlatform: true
