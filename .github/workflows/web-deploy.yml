@@ -42,7 +42,10 @@ jobs:
               run: yarn install
 
             - name: Build photos
-              run: yarn build:photos
+              run: |
+                  export NEXT_PUBLIC_ENTE_ENDPOINT=${{ secrets.NEXT_PUBLIC_ENTE_ENDPOINT }}
+                  export NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT=${{ secrets.NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT }}
+                  yarn build:photos
 
             - name: Publish photos
               uses: cloudflare/wrangler-action@v3
