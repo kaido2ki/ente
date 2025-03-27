@@ -54,6 +54,7 @@ jobs:
           git fetch upstream
           git checkout main
           git merge upstream/main
+          git pull
           git push origin main
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
