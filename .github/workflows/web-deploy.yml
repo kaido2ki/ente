@@ -56,7 +56,10 @@ jobs:
 
             - name: Build accounts
               run: yarn build:accounts
-
+              env:
+                  NEXT_PUBLIC_ENTE_ENDPOINT: ${{ secrets.NEXT_PUBLIC_ENTE_ENDPOINT }}
+                  NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT: ${{ secrets.NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT }}
+                  
             - name: Publish accounts
               uses: cloudflare/wrangler-action@v3
               with:
@@ -66,7 +69,10 @@ jobs:
 
             - name: Build auth
               run: yarn build:auth
-
+              env:
+                  NEXT_PUBLIC_ENTE_ENDPOINT: ${{ secrets.NEXT_PUBLIC_ENTE_ENDPOINT }}
+                  NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT: ${{ secrets.NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT }}
+                  
             - name: Publish auth
               uses: cloudflare/wrangler-action@v3
               with:
@@ -76,7 +82,10 @@ jobs:
 
             - name: Build cast
               run: yarn build:cast
-
+              env:
+                  NEXT_PUBLIC_ENTE_ENDPOINT: ${{ secrets.NEXT_PUBLIC_ENTE_ENDPOINT }}
+                  NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT: ${{ secrets.NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT }}
+                  
             - name: Publish cast
               uses: cloudflare/wrangler-action@v3
               with:
@@ -86,7 +95,10 @@ jobs:
 
             - name: Build payments
               run: yarn build:payments
-
+              env:
+                  NEXT_PUBLIC_ENTE_ENDPOINT: ${{ secrets.NEXT_PUBLIC_ENTE_ENDPOINT }}
+                  NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT: ${{ secrets.NEXT_PUBLIC_ENTE_ALBUMS_ENDPOINT }}
+                  
             - name: Publish payments
               uses: cloudflare/wrangler-action@v3
               with:
